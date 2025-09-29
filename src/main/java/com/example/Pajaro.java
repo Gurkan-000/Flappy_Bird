@@ -3,38 +3,37 @@ package com.example;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JPanel;
+
 public class Pajaro extends Figura {
 
-    private int salto;
+    private int velocidad = 0;
 
     private final int gravedad = 1;
 
-    public Pajaro(int posicionX, int posicionY, int ancho, int altura, int salto) {
-        super(posicionX, posicionY, ancho, altura);
+    private KeyEventSalto keyEventSalto;
 
-        this.salto = salto;
-
-        pajaroSalto keySalto = new pajaroSalto();
-
-        addKeyListener(keySalto);
-
+    public Pajaro(int posicionX, int posicionY, int ancho, int altura, JPanel panel) {
+        super(posicionX, posicionY, ancho, altura, panel);
+        keyEventSalto = new KeyEventSalto();
     }
 
-    public void saltar() {
-
+    public KeyEventSalto getKeyEventSalto() {
+        return keyEventSalto;
     }
 
-    private class pajaroSalto extends KeyAdapter {
+    @Override
+    public void mover() {
+        setPosicionY(getPosicionY() + (velocidad+=gravedad));
+    }
 
-        public void keyPressed(KeyEvent k) {
-
-            if (k.getKeyCode() == KeyEvent.VK_SPACE) {
-                salto = true;
-                gravedad = 10;
+    private class KeyEventSalto extends KeyAdapter {
+        @Override
+        public void keyPressed (KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_SPACE){
+                velocidad = -12;
             }
-
         }
-
     }
 
 }

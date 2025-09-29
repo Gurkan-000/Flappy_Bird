@@ -1,5 +1,7 @@
 package com.example;
 
+import javax.swing.JPanel;
+
 public abstract class Figura {
 
     private int posicionX;
@@ -8,12 +10,21 @@ public abstract class Figura {
     private int ancho;
     private int altura;
     
-    public Figura(int posicionX, int posicionY, int ancho, int altura) {
+    private JPanel panel;
+    
+    public Figura(int posicionX, int posicionY, int ancho, int altura, JPanel panel) {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
         this.ancho = ancho;
         this.altura = altura;
+        this.panel = panel;
     }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public abstract void mover();
 
     public int getPosicionX() {
         return posicionX;
