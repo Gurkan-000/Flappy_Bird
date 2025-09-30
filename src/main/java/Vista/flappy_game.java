@@ -1,13 +1,18 @@
-package com.example;
+package Vista;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+
+import Modelo.*;
+import Util.Colision;
 
 public class flappy_game extends JPanel {
 
@@ -24,7 +29,7 @@ public class flappy_game extends JPanel {
     public void iniciarJuego() {
         animacion = new Timer(1000 / 60, e -> animacionJuego(e));
         pajaro = new Pajaro(50, (getHeight() - 30)/2, 45, 30, this);
-        tubo = new Tubo(getWidth(), 0, 50, this);
+        tubo = new Tubo(getWidth(), 0, 60, this);
 
         setFocusable(true);
         addKeyListener(pajaro.getKeyEventSalto());
@@ -37,16 +42,22 @@ public class flappy_game extends JPanel {
         animacion.start();
     }
 
+    public Image Imagen(String url){
+        return new ImageIcon(getClass().getResource("/"+url)).getImage();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         g.setColor(Color.black);
 
-        g.fillRect(pajaro.getPosicionX(), pajaro.getPosicionY(), pajaro.getAncho(), pajaro.getAltura());
+        g.drawImage(Imagen("fondo.png"), 0, 0,getWidth(),getHeight(), this);
 
-        g.fillRect(tubo.getPosicionX(), tubo.getPosicionY(), tubo.getAncho(), tubo.getAltura());
-        g.fillRect(tubo.getPosicionX(), tubo.getPosicionTuboInferiorY(), tubo.getAncho(), tubo.getAlturaTuboInferior());
+        g.drawImage(Imagen("bird.png"),pajaro.getPosicionX(), pajaro.getPosicionY(), pajaro.getAncho(), pajaro.getAltura(),this);
+
+        g.drawImage(Imagen("tubo2.png"),tubo.getPosicionX(), tubo.getPosicionY(), tubo.getAncho(), tubo.getAltura(),this);
+        g.drawImage(Imagen("tubo1.png"),tubo.getPosicionX(), tubo.getPosicionTuboInferiorY(), tubo.getAncho(), tubo.getAlturaTuboInferior(),this);
 
     }
 
@@ -56,9 +67,9 @@ public class flappy_game extends JPanel {
 
             animacion.stop();
 
-            int si = JOptionPane.showConfirmDialog(this, "Game over : ¿Quieres intentarlo de nuevo?", "", JOptionPane.YES_NO_OPTION);
+            int SI = JOptionPane.showConfirmDialog(this, "Game over : ¿Quieres intentarlo de nuevo?", "", JOptionPane.YES_NO_OPTION);
 
-            if(si == JOptionPane.YES_OPTION){
+            if(SI == JOptionPane.YES_OPTION){
                 reiniciarJuego();
             }else{
                 System.exit(0);

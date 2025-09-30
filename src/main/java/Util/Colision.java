@@ -1,4 +1,6 @@
-package com.example;
+package Util;
+
+import Modelo.*;
 
 public class Colision {
 

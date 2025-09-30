@@ -1,4 +1,4 @@
-package com.example;
+package Modelo;
 
 import javax.swing.JPanel;
 
@@ -8,7 +8,7 @@ public class Tubo extends Figura {
 
     private int alturaTuboInferior;
 
-    private int separacion = 150;
+    private int separacion = 130;
 
     private int coordenadaSeparacion;
 
